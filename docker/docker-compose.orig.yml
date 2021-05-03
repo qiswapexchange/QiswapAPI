@@ -1,0 +1,26 @@
+
+version: "3.8"
+networks:
+    default:
+        external:
+            name: quick_start_default
+services:
+    apiserver:        
+        restart: always
+        container_name: qiswap-apiserver
+        #network_mode: "host"
+        build:
+            context: ../app
+        image: qiswap/apiserver:v1                
+        environment:
+            - HTTPPROVIDER=http://qtum:testpasswd@127.0.0.1:23889
+        
+    nginx:        
+        restart: always
+        #network_mode: "host"
+        container_name: qiswap-proxy
+        build:
+            context: ../nginx            
+        image: qiswap/proxyserver:v1
+        ports:
+            - "80:80"

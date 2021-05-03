@@ -1,0 +1,44 @@
+
+version: "3.8"
+networks:
+    qtum:
+        
+services:
+    apiserver:
+        restart: always
+        container_name: qiswap-apiserver
+        build:
+            context: ../app            
+        environment:
+            - HTTPPROVIDER=http://qtum:testpasswd@janus:23889
+        
+    nginx:
+        restart: always
+        container_name: qiswap-proxy
+        build:
+            context: ../nginx
+        ports:
+            - "80:80"
+
+    janus:
+        image: qtum/janus:dev
+        container_name: janus
+        build:
+            context: ../../
+            cache_from:
+            - golang:1.14-alpine
+        ports:
+            - "23889:23889"
+        environment:
+            - QTUM_RPC=http://qtum:testpasswd@qtum:3889
+        volumes:
+            - ./janus/myaccounts.txt:$GOPATH/github.com/qtumproject/janus/myaccounts.txt
+        depends_on:
+        - qtum
+        command: --bind 0.0.0.0 --accounts $GOPATH/github.com/qtumproject/janus/myaccounts.txt --dev
+    qtum:
+        ports:
+        - "3889:3889"
+        image: qtum/qtum
+        container_name: qtum_mainnet
+        command: qtumd -addrindex=1 -rpcbind=0.0.0.0:3889 -rpcallowip=0.0.0.0/0 -logevents -rpcuser=qtum -rpcpassword=testpasswd -deprecatedrpc=accounts -printtoconsole
