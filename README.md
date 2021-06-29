@@ -1,11 +1,11 @@
-# QiSWAP REST API
+# QiSWAP API
 
 ## Live deployment
 
-http://15.236.123.126/qiswap/api/v1/
+http://testnet-api.qiswap.com/
 
 
-## Endpoints deployed
+## Rest endpoints deployed
 
 |  End Point | Description   |
 |---|---|

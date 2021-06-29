@@ -1,26 +1,31 @@
 
 version: "3.8"
-#networks:
-#    default:
-#        external:
-#            name: quick_start_default
 services:
-    apiserver:        
+    rest-api:        
         restart: always
-        container_name: qiswap-apiserver
-        #network_mode: "host"
+        container_name: qiswap-rest-api
+        volumes:
+            - ../utils:/usr/src/utils 
         build:
-            context: ../app
-        image: qiswap/apiserver:v1                
-        environment:
-            - HTTPPROVIDER=http://qtum:testpasswd@host.docker.internal:23889
+            context: ../rest-api/
+        image: qiswap/rest-api:latest                
         
+    graphql-api:        
+        restart: always
+        container_name: qiswap-graphql-api
+        volumes:
+            - ../utils:/usr/src/utils 
+        build:
+            context: ../graphql-api/
+        image: qiswap/graphql-api:latest                
+
     nginx:        
         restart: always
-        #network_mode: "host"
         container_name: qiswap-proxy
         build:
             context: ../nginx            
-        image: qiswap/proxyserver:v1
+        image: qiswap/proxyserver:latest
         ports:
             - "80:80"
+        volumes:
+            - ../homepage:/var/www/homepage/
