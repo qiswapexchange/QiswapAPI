@@ -12,6 +12,37 @@ http://testnet-api.qiswap.com/
 | /pairs  | List pairs deployed on Qiswap  |
 | /pairs/:pair   | Returns available data for a specific pair, i.e. *pairs/QI_WQTUM*  |
 
+## Overview
+
+### a. Folder structure
+
+```javascript
+docker // docker-compose file  
+graphql-api  // API graphql backend implementation
+homepage  // hugo.io app and static files for homepage
+nginx  // nginx reverse proxy server
+rest-api  // API rest backend implementation
+utils // QiSWAP ABIs, conntants and config files
+```
+
+### b. Architecture
+
+![architecture](./utils/docs/qiswap-api-diagram.png)
+
+### c. Screenshots
+
+URL: http://testnet-api.qiswap.com/
+
+![home](./utils/docs/home.png)
+
+URL: http://testnet-api.qiswap.com/graphql-api/v1/
+
+![graphql](./utils/docs/grapghql-api.png)
+
+URL: http://testnet-api.qiswap.com/rest-api/v1/
+
+![restful](./utils/docs/rest-api.png)
+
 
 ## Pre-requisites
 Janus and Qtumd containers must be up and running on the same host where the API is deployed
