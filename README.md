@@ -32,3 +32,15 @@ cd docker
 ```bash
 docker-compose --build up -d
 ``` 
+
+## Miscelaneous
+
+### 1. Updates to homepage static files
+
+Homepage static files are handled via gohugo.io
+
+To update the homepage:
+```bash
+cd homepage
+hugo -D
+```
