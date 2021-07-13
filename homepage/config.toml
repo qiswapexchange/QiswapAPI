@@ -1,4 +1,4 @@
-baseURL = "http://testnet-api.qiswap.com/"
+baseURL = "https://testnet-graph.qiswap.com/"
 languageCode = "en-us"
 title = "QiSWAP testnet API"
 Paginate = 1000
@@ -25,4 +25,4 @@ pluralizelisttitles = false
 
 [social]
   facebook = "https://facebook.com"
-  twitter = "https://twitter.com"
+  twitter = "https://twitter.com/QiSwap"
