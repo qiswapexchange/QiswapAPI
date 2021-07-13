@@ -31,15 +31,15 @@ utils // QiSWAP ABIs, conntants and config files
 
 ### c. Screenshots
 
-URL: http://testnet-api.qiswap.com/
+URL: http://testnet-graph.qiswap.com/
 
 ![home](./utils/docs/home.png)
 
-URL: http://testnet-api.qiswap.com/graphql-api/v1/
+URL: http://testnet-graph.qiswap.com/graphql-api/v1/
 
 ![graphql](./utils/docs/grapghql-api.png)
 
-URL: http://testnet-api.qiswap.com/rest-api/v1/
+URL: http://testnet-graph.qiswap.com/rest-api/v1/
 
 ![restful](./utils/docs/rest-api.png)
 
