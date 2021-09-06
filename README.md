@@ -2,15 +2,8 @@
 
 ## Live deployment
 
-http://testnet-graph.qiswap.com/
+http://graph.qiswap.com/
 
-
-## Rest endpoints deployed
-
-|  End Point | Description   |
-|---|---|
-| /pairs  | List pairs deployed on Qiswap  |
-| /pairs/:pair   | Returns available data for a specific pair, i.e. *pairs/QI_WQTUM*  |
 
 ## Overview
 
@@ -31,15 +24,15 @@ utils // QiSWAP ABIs, conntants and config files
 
 ### c. Screenshots
 
-URL: http://testnet-graph.qiswap.com/
+URL: http://graph.qiswap.com/
 
 ![home](./utils/docs/home.png)
 
-URL: http://testnet-graph.qiswap.com/graphql-api/v1/
+URL: http://graph.qiswap.com/graphql-api/v1/
 
 ![graphql](./utils/docs/grapghql-api.png)
 
-URL: http://testnet-graph.qiswap.com/rest-api/v1/
+URL: http://graph.qiswap.com/rest-api/v1/
 
 ![restful](./utils/docs/rest-api.png)
 
@@ -82,21 +75,28 @@ SSL certificates are renewed automatically via a `cronjob` that executes the scr
 ```bash
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-Processing /etc/letsencrypt/renewal/testnet-graph.qiswap.com.conf
+Processing /etc/letsencrypt/renewal/graph.qiswap.com.conf
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 Certificate not due for renewal, but simulating renewal for dry run
 Non-interactive renewal: random delay of 259.43743094994437 seconds
 Plugins selected: Authenticator webroot, Installer None
-Simulating renewal of an existing certificate for testnet-graph.qiswap.com
+Simulating renewal of an existing certificate for graph.qiswap.com
 Performing the following challenges:
-http-01 challenge for testnet-graph.qiswap.com
+http-01 challenge for graph.qiswap.com
 Using the webroot path /var/www/certbot for all unmatched domains.
 Waiting for verification...
 Cleaning up challenges
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Congratulations, all simulated renewals succeeded:
-  /etc/letsencrypt/live/testnet-graph.qiswap.com/fullchain.pem (success)
+  /etc/letsencrypt/live/graph.qiswap.com/fullchain.pem (success)
 
 ```
+
+## Rest endpoints deployed
+
+|  End Point | Description   |
+|---|---|
+| /pairs  | List pairs deployed on Qiswap  |
+| /pairs/:pair   | Returns available data for a specific pair, i.e. *pairs/QI_WQTUM*  |
