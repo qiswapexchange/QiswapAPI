@@ -1,4 +1,0 @@
----
-title: theGraph
-private: true
----

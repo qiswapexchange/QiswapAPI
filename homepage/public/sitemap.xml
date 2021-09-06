@@ -3,37 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://testnet-graph.qiswap.com/api-rest/</loc>
+    <loc>https://graph.qiswap.com/graph-node/blocks/</loc>
+    <lastmod>2021-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://graph.qiswap.com/graph-node/</loc>
+    <lastmod>2021-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://graph.qiswap.com/</loc>
+    <lastmod>2021-09-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://graph.qiswap.com/rest/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://testnet-graph.qiswap.com/graphql/</loc>
+    <loc>https://graph.qiswap.com/graphql/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://testnet-graph.qiswap.com/graphql/graphql/</loc>
+    <loc>https://graph.qiswap.com/graphql/graphql/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://testnet-graph.qiswap.com/</loc>
+    <loc>https://graph.qiswap.com/graph-node/qiswap/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://testnet-graph.qiswap.com/api-rest/api-rest/</loc>
-    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://testnet-graph.qiswap.com/thegraph/</loc>
-    <lastmod>2020-06-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://testnet-graph.qiswap.com/thegraph/thegraph/</loc>
+    <loc>https://graph.qiswap.com/rest/api-rest/</loc>
     <lastmod>2020-06-01T00:00:00+00:00</lastmod>
   </url>
   

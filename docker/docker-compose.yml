@@ -46,8 +46,9 @@ services:
 
     certbot:
         image: certbot/certbot:latest
-        command: certonly --webroot --webroot-path=/var/www/certbot --email alejo@qtum.info --agree-tos --no-eff-email --force-renewal -d testnet-graph.qiswap.com 
+        command: certonly --webroot --webroot-path=/var/www/certbot --email alejo@qtum.info --agree-tos --no-eff-email --force-renewal -d graph.qiswap.com 
         volumes:
             - ../nginx/certbot/conf:/etc/letsencrypt
             - ../nginx/certbot/logs:/var/log/letsencrypt
             - ../nginx/certbot/data:/var/www/certbot
+            - ../homepage:/var/www/homepage/

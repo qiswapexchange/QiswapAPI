@@ -1,6 +1,6 @@
-baseURL = "https://testnet-graph.qiswap.com/"
+baseURL = "https://graph.qiswap.com/"
 languageCode = "en-us"
-title = "QiSWAP testnet API"
+title = "QiSWAP API"
 Paginate = 1000
 googleAnalytics = ""
 theme = "showcase"
