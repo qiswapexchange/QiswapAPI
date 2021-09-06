@@ -1,26 +1,54 @@
 
 version: "3.8"
-#networks:
-#    default:
-#        external:
-#            name: quick_start_default
+
+networks:
+    api-network:
+        driver: bridge
+
 services:
-    apiserver:        
+    rest-api:        
+        image: qiswap/rest-api:latest                
         restart: always
-        container_name: qiswap-apiserver
-        #network_mode: "host"
+        container_name: qiswap-rest-api
+        volumes:
+            - ../utils:/usr/src/utils 
         build:
-            context: ../app
-        image: qiswap/apiserver:v1                
-        environment:
-            - HTTPPROVIDER=http://qtum:testpasswd@host.docker.internal:23889
+            context: ../rest-api/
+        networks:
+            - api-network            
         
+    graphql-api:        
+        image: qiswap/graphql-api:latest                
+        restart: always
+        container_name: qiswap-graphql-api
+        volumes:
+            - ../utils:/usr/src/utils 
+        build:
+            context: ../graphql-api/
+        networks:
+            - api-network            
+
     nginx:        
         restart: always
-        #network_mode: "host"
         container_name: qiswap-proxy
-        build:
-            context: ../nginx            
-        image: qiswap/proxyserver:v1
+        image: nginx:latest
+        volumes:
+            - ../homepage:/var/www/homepage/
+            - ../nginx/conf.d:/etc/nginx/conf.d
+            - ../nginx/certbot/conf:/etc/letsencrypt
+            - ../nginx/certbot/data:/var/www/certbot
+            - ../nginx/dhparam:/etc/ssl/certs
         ports:
-            - "80:80"
+            - 80:80
+            - 443:443
+        networks:
+            - api-network            
+
+    certbot:
+        image: certbot/certbot:latest
+        command: certonly --webroot --webroot-path=/var/www/certbot --email alejo@qtum.info --agree-tos --no-eff-email --force-renewal -d graph.qiswap.com 
+        volumes:
+            - ../nginx/certbot/conf:/etc/letsencrypt
+            - ../nginx/certbot/logs:/var/log/letsencrypt
+            - ../nginx/certbot/data:/var/www/certbot
+            - ../homepage:/var/www/homepage/

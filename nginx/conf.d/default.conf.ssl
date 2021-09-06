@@ -1,0 +1,123 @@
+#https://www.digitalocean.com/community/tutorials/how-to-secure-a-containerized-node-js-application-with-nginx-let-s-encrypt-and-docker-compose
+
+# server to handle certbot
+server {
+        listen 80;
+        listen [::]:80;
+
+        location ~ /.well-known/acme-challenge {
+          allow all;
+	  root /var/www/certbot;
+        }
+
+}
+
+
+# main server to handle https://graph.qiswap.com
+server {
+        listen 443 ssl http2;
+        listen [::]:443 ssl http2;
+	listen 80;
+	if ($scheme = http) {
+   		return 301 https://graph.qiswap.com$request_uri;
+  	}
+        server_name graph.qiswap.com www.graph.qiswap.com 
+
+        server_tokens off;
+        ssl_certificate /etc/letsencrypt/live/graph.qiswap.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/graph.qiswap.com/privkey.pem;
+        ssl_buffer_size 8k;
+        ssl_dhparam /etc/ssl/certs/dhparam-2048.pem;
+        ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+        ssl_prefer_server_ciphers on;
+        ssl_ciphers ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
+        ssl_ecdh_curve secp384r1;
+        ssl_session_tickets off;
+        ssl_stapling on;
+        ssl_stapling_verify on;
+        resolver 8.8.8.8;
+
+	#location for static files (homepage)
+        location / {
+		try_files $uri $uri/ =404;
+        }
+
+	location /rest-api {
+		try_files $uri @rest;
+	}
+
+	#location for REST api server
+        location @rest {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            add_header X-Frame-Options "SAMEORIGIN" always;
+            add_header X-XSS-Protection "1; mode=block" always;
+            add_header X-Content-Type-Options "nosniff" always;
+            add_header Referrer-Policy "no-referrer-when-downgrade" always;
+            add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'" always;
+            proxy_pass http://qiswap-rest-api:3001;
+        }
+
+	#location for graphql api server
+        location /graphql-api/ {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_pass http://qiswap-graphql-api:3000;
+        }
+
+	#location for qiswap subgraph
+        location /subgraphs/name/qiswap-v2 {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_pass http://172.23.0.1:8000/subgraphs/name/qiswap-v2;
+        }
+
+	#location for ethereum-blocks subgraph
+        location /subgraphs/name/blocklytics/ethereum-blocks {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            proxy_pass http://172.23.0.1:8000/subgraphs/name/blocklytics/ethereum-blocks;
+        }
+
+	#location to resolve files for graphiql tool
+	location ~*  /(graphiql)\. {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_pass http://172.23.0.1:8000;
+
+	}
+
+	#location to resolve graph node port 8030
+	location /graphql {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_pass http://172.23.0.1:8030/graphql;
+
+	}
+
+	root  /var/www/homepage/public;
+        index index.html index.htm index.nginx-debian.html;
+}
+
+#server to handle ip address redirect to domain name
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name _;
+	return 301 https://graph.qiswap.com$request_uri;
+}

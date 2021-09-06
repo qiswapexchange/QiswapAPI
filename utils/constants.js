@@ -1,0 +1,9 @@
+const FACTORY = require('./abis/core/UniswapV2Factory.json');
+const ERC20 = require('./abis/core/ERC20.json');
+const PAIR  = require('./abis/core/IUniswapV2Pair.json');
+const FACTORY_ADDRESS='0x284937a9f5a1d28268d4e48d5eda03b04a7a1786';
+const QCASH='0xf2033ede578e17fa6231047265010445bca8cf1c';
+const QI='0x54fefdb5b31164f66ddb68becd7bdd864cacd65b';
+const WQTUM = '0xe7e5caae57b34b93c57af9478a5130f62e3d2827';
+const JANUS = 'http://qtum:testpasswd@0.0.0.0:23889';
+module.exports = { FACTORY, ERC20, PAIR, FACTORY_ADDRESS, QCASH, QI, WQTUM, JANUS};

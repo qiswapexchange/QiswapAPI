@@ -1,16 +1,40 @@
-# QiSWAP REST API
+# QiSWAP API
 
 ## Live deployment
 
-http://15.236.123.126/qiswap/api/v1/
+http://graph.qiswap.com/
 
 
-## Endpoints deployed
+## Overview
 
-|  End Point | Description   |
-|---|---|
-| /pairs  | List pairs deployed on Qiswap  |
-| /pairs/:pair   | Returns available data for a specific pair, i.e. *pairs/QI_WQTUM*  |
+### a. Folder structure
+
+```javascript
+docker // docker-compose file  
+graphql-api  // API graphql backend implementation
+homepage  // hugo.io app and static files for homepage
+nginx  // nginx reverse proxy server
+rest-api  // API rest backend implementation
+utils // QiSWAP ABIs, conntants and config files
+```
+
+### b. Architecture
+
+![architecture](./utils/docs/qiswap-api-diagram.png)
+
+### c. Screenshots
+
+URL: http://graph.qiswap.com/
+
+![home](./utils/docs/home.png)
+
+URL: http://graph.qiswap.com/graphql-api/v1/
+
+![graphql](./utils/docs/grapghql-api.png)
+
+URL: http://graph.qiswap.com/rest-api/v1/
+
+![restful](./utils/docs/rest-api.png)
 
 
 ## Pre-requisites
@@ -32,3 +56,47 @@ cd docker
 ```bash
 docker-compose --build up -d
 ``` 
+
+## Miscelaneous
+
+### 1. Updates to homepage static files
+
+Homepage static files are handled via gohugo.io
+
+To update the homepage:
+```bash
+cd homepage
+hugo -D
+```
+### 2. SSL cert renewal
+
+SSL certificates are renewed automatically via a `cronjob` that executes the script `./docker/ssl_renew.sh` every day at noon
+
+```bash
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Processing /etc/letsencrypt/renewal/graph.qiswap.com.conf
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Certificate not due for renewal, but simulating renewal for dry run
+Non-interactive renewal: random delay of 259.43743094994437 seconds
+Plugins selected: Authenticator webroot, Installer None
+Simulating renewal of an existing certificate for graph.qiswap.com
+Performing the following challenges:
+http-01 challenge for graph.qiswap.com
+Using the webroot path /var/www/certbot for all unmatched domains.
+Waiting for verification...
+Cleaning up challenges
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations, all simulated renewals succeeded:
+  /etc/letsencrypt/live/graph.qiswap.com/fullchain.pem (success)
+
+```
+
+## Rest endpoints deployed
+
+|  End Point | Description   |
+|---|---|
+| /pairs  | List pairs deployed on Qiswap  |
+| /pairs/:pair   | Returns available data for a specific pair, i.e. *pairs/QI_WQTUM*  |
