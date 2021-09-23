@@ -26,7 +26,7 @@ if [ -z $CONTAINER_ID ]; then
 fi
 
 # Inspect the container to identify JANUS http listening port
-JANUS_PORT=$(docker inspect janus_mainnet | jq -r .[0].NetworkSettings.Ports[] | grep -oE '[0-9]+{2,}' | sort -u)
+JANUS_PORT=$(docker inspect janus_testchain | jq -r .[0].NetworkSettings.Ports[] | grep -oE '[0-9]+{2,}' | sort -u)
 
 echo "Janus Port: $JANUS_PORT"
 
@@ -37,7 +37,7 @@ docker-compose up --no-start nginx
 docker-compose start nginx
 
 # Identify the container ID
-CONTAINER_ID=$(docker container ls | grep 'qiswap-proxy' | cut -d' ' -f1)
+CONTAINER_ID=$(docker container ls | grep nginx | cut -d' ' -f1)
 
 # Inspect the container to identify the host IP address
 HOST_IP=$(docker inspect "$CONTAINER_ID" | jq -r .[0].NetworkSettings.Networks[].Gateway)
