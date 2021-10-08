@@ -1,5 +1,5 @@
 ---
-title: theGraph
+title: qiswap
 date: 2020-06-01
 subtitle: qiswap (testnet) subgraph
 link: /subgraphs/name/qiswap-testnet-v2

@@ -1,5 +1,5 @@
 ---
-title: theGraph
+title: qtum blocks
 date: 2020-06-01
 subtitle: ethereum-blocks subgraph
 link: /subgraphs/name/blocklytics/ethereum-blocks
